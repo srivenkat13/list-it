@@ -130,7 +130,7 @@ export function App() {
                   {todo.completed ? "Undo" : "Complete"}
                 </button>
                 {todo.completed && (
-                  <button onClick={() => handleDelete(index)}>Delete</button>
+                  <button onClick={() => handleDelete(index)}>Remove</button>
                 )}
                 {!todo.completed && (
                   <button onClick={() => handleEdit(index)}>Edit</button>
