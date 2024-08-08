@@ -38,6 +38,7 @@ input {
   padding: 10px;
   font-size: 16px;
   width: 312px;
+  outline: none;
 }
 
 button {
@@ -81,11 +82,40 @@ li > .buttons > button:first-of-type {
   right: 10px;
   box-shadow: 1px 1px 1px fuchsia;
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: #242424;
+  padding: 20px;
+  height: auto;
+  border-radius: 8px;
+  width: 300px;
+  position: fixed;
+}
+
+.close-button {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
 @media (max-width: 600px) {
   .clear {
     bottom: 10px;
     top: auto;
-   
   }
 }

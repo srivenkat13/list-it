@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import "./app.css";
+import Modal from "./Modal";
 
 export function App() {
   const [todos, setTodos] = useState(() => {
@@ -10,6 +11,7 @@ export function App() {
 
   const [editInput, setEditInput] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [data, setData] = useState("");
 
@@ -67,6 +69,7 @@ export function App() {
     setTodos(newTodos);
     setEditIndex(null);
     setEditInput("");
+    setIsModalOpen(false)
   };
   const handleDataSubmit = (e) => {
     e.preventDefault();
@@ -83,6 +86,17 @@ export function App() {
     alert("Are you sure ?");
     setTodos([]);
   };
+
+  const openModal = (index) => {
+    setEditIndex(index);
+    setEditInput(todos[index].text);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = (index) => {
+    setEditIndex(index)
+    setIsModalOpen(false)
+  }
   return (
     <>
       <form onSubmit={handleDataSubmit}>
@@ -116,15 +130,14 @@ export function App() {
             className={todo.completed ? "completed" : ""}
             style={{ textDecoration: todo.completed ? "line-through" : "none" }}
           >
-            {editIndex === index ? (
-              <form onSubmit={handleEditSubmit}>
-                <input
-                  type="text"
-                  value={editInput}
-                  onChange={(e) => setEditInput(e.target.value)}
-                />
-                <button type="submit">Update</button>
-              </form>
+            {editIndex === index  && isModalOpen ? (
+              <Modal
+              // onBlur={() => setIsModalOpen(false)}
+              editInput={editInput}
+              setEditInput={setEditInput}
+              handleEditSubmit={handleEditSubmit}
+              closeModal={closeModal}
+            />
             ) : (
               <>
                 <div> {todo.text.charAt(0).toUpperCase() + todo.text.slice(1) }</div>
@@ -136,7 +149,8 @@ export function App() {
                     <button onClick={() => handleDelete(index)}>Remove</button>
                   )}
                   {!todo.completed && (
-                    <button onClick={() => handleEdit(index)}>Edit</button>
+                     <button onClick={() => openModal(index)}>Edit</button>
+                    // <button onClick={() => handleEdit(index)}>Edit</button>
                   )}
                 </div>
               </>
