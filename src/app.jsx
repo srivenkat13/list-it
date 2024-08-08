@@ -70,7 +70,7 @@ export function App() {
   };
   const handleDataSubmit = (e) => {
     e.preventDefault();
-    const formatedArray = data.trim().split(/ |\n/);
+    const formatedArray = data.trim().split(/\n/);
     console.log(formatedArray);
     setTodos((prevTodos) => [
       ...prevTodos,
