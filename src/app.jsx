@@ -29,7 +29,7 @@ export function App() {
       alert("Todo Already exists");
       return;
     }
-    setTodos([...todos, { text: trimmedInput, completed: false }]);
+    setTodos([{ text: trimmedInput, completed: false }, ...todos]);
 
     setInput("");
   };
@@ -96,7 +96,9 @@ export function App() {
         ></textarea>
         <button type="submit">Insert</button>
       </form>
-      <button  class="clear"onClick={handleClear}>Clear all</button>
+      <button class="clear" onClick={handleClear}>
+        Clear all
+      </button>
       <form onSubmit={handleSubmit}>
         <input
           autoFocus
@@ -125,16 +127,18 @@ export function App() {
               </form>
             ) : (
               <>
-                {todo.text}
-                <button onClick={() => handleToggleComplete(index)}>
-                  {todo.completed ? "Undo" : "Complete"}
-                </button>
-                {todo.completed && (
-                  <button onClick={() => handleDelete(index)}>Remove</button>
-                )}
-                {!todo.completed && (
-                  <button onClick={() => handleEdit(index)}>Edit</button>
-                )}
+                <div> {todo.text.charAt(0).toUpperCase() + todo.text.slice(1) }</div>
+                <div class="buttons">
+                  <button onClick={() => handleToggleComplete(index)}>
+                    {todo.completed ? "Undo" : "Complete"}
+                  </button>
+                  {todo.completed && (
+                    <button onClick={() => handleDelete(index)}>Remove</button>
+                  )}
+                  {!todo.completed && (
+                    <button onClick={() => handleEdit(index)}>Edit</button>
+                  )}
+                </div>
               </>
             )}
           </li>
